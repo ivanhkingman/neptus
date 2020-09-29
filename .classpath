@@ -80,6 +80,7 @@
 	<classpathentry kind="src" path="plugins-dev/dev"/>
 	<classpathentry kind="src" path="plugins-dev/cdc3"/>
 	<classpathentry kind="src" path="plugins-dev/dji-photo-importer"/>
+	<classpathentry kind="src" path="plugins-dev/ho4"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/xerces-2.7.1/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/xerces-2.7.1/xercesImpl.jar"/>
