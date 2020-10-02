@@ -3,10 +3,13 @@ package pt.lsts.neptus.plugins.ho4;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
+import java.util.Iterator;
+import java.util.Vector;
 
 import com.google.common.eventbus.Subscribe;
 
 import pt.lsts.imc.IMCAddressResolver;
+import pt.lsts.imc.IMCMessage;
 import pt.lsts.imc.PathControlState;
 import pt.lsts.imc.PlanDB;
 import pt.lsts.imc.Rpm;
@@ -22,7 +25,7 @@ import pt.lsts.neptus.types.vehicle.VehicleType;
 import pt.lsts.neptus.types.vehicle.VehiclesHolder;
 
 
-@PluginDescription(author="Manuel R.", category=CATEGORY.UNSORTED, name="Myplugin", version = "0.8", description = "This is my first plugin")
+@PluginDescription(author="Ivan Kingman", category=CATEGORY.UNSORTED, name="Myplugin", version = "0.8", description = "This is my first plugin")
 public class MyFirstPlugin extends ConsoleLayer {
 
     private VehicleType vehicle;
@@ -31,7 +34,8 @@ public class MyFirstPlugin extends ConsoleLayer {
     private short rpmVal = -1;
     private double tempVal = Double.MAX_VALUE;
     private LocationType loc = null;
-    private String planId = ""; // addition is part of my home work
+    private Vector<IMCMessage> planList = null;
+    private String planListString = "";
 
     public MyFirstPlugin() {
         NeptusLog.pub().info("This is my first plugin");
@@ -59,6 +63,9 @@ public class MyFirstPlugin extends ConsoleLayer {
             str1.append("N/A");
         g2.drawString(str1.toString(), 15, 30);
         
+        // Code for drawing target location (home-work)
+        g2.drawString("Target Coord.: "+ Double.toString(loc.getLatitudeDegs()) + ", " +Double.toString(loc.getLongitudeDegs()), 15, 60);
+        
         // Code for drawing temperature
         DecimalFormat df2 = new DecimalFormat("#.##");
         StringBuilder str2 = new StringBuilder();
@@ -69,21 +76,25 @@ public class MyFirstPlugin extends ConsoleLayer {
             str2.append("N/A");
         g2.drawString(str2.toString(), 15, 45);
         
-        // Code for drawing target location (home-work)
-        g2.drawString("Target Coord.: "+ Double.toString(loc.getLatitudeDegs()) + ", " +Double.toString(loc.getLongitudeDegs()), 15, 60);
         
         // Code for drawing selected vehicles plan name
         StringBuilder str3 = new StringBuilder();
         str3.append("Plans: ");
-        if (planId != "")
-            str3.append(planId);
+        
+        
+        if (planListString != "") {
+            str3.append(planListString);
+        }
+                
         else
             str3.append("N/A");
         g2.drawString(str3.toString(), 15, 75);
-        
+
         g2.dispose();
     }
     
+    
+  
     @Subscribe
     public void mainVehicleChangeNotification(ConsoleEventMainSystemChange evt) {
         rpmVal = -1;
@@ -101,7 +112,6 @@ public class MyFirstPlugin extends ConsoleLayer {
             rpmVal = rpm.getValue();
         }
     }
-    
     
     //HOME-WORK
     @Subscribe
@@ -123,7 +133,7 @@ public class MyFirstPlugin extends ConsoleLayer {
     @Subscribe
     public void consume(PlanDB db) {
         if (db.getSrc() == mainvehicleId) {
-            planId = db.getArg().getMessageList("plans_info").get(8).toString();
+        	planListString = db.getMessage("arg").getMessageList("plans_info").toString();
         }
     }
     
