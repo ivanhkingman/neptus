@@ -36,6 +36,7 @@ public class MyFirstPlugin extends ConsoleLayer {
     private LocationType loc = null;
     private Vector<IMCMessage> planList = null;
     private String planListString = "";
+    
 
     public MyFirstPlugin() {
         NeptusLog.pub().info("This is my first plugin");
@@ -81,13 +82,16 @@ public class MyFirstPlugin extends ConsoleLayer {
         StringBuilder str3 = new StringBuilder();
         str3.append("Plans: ");
         
-        
-        if (planListString != "") {
+       
+        if (planList != null) {
+            
             str3.append(planListString);
         }
                 
-        else
+        else {
             str3.append("N/A");
+        }
+      
         g2.drawString(str3.toString(), 15, 75);
 
         g2.dispose();
@@ -129,12 +133,21 @@ public class MyFirstPlugin extends ConsoleLayer {
     }
     
     // My Home-Work below this comment //
-    
+
     @Subscribe
     public void consume(PlanDB db) {
         if (db.getSrc() == mainvehicleId) {
-        	planListString = db.getMessage("arg").getMessageList("plans_info").toString();
+            planListString = "";
+        	planList = db.getMessage("arg").getMessageList("plans_info");
+        };
+        
+        // Todo: Move this string formatting outside of consume method,
+        Iterator<IMCMessage> i = planList.iterator();
+        while (i.hasNext()) {
+            planListString = planListString.concat(i.next().getString("plan_id"));
+            planListString = planListString.concat(", ");
         }
+        planListString = planListString.substring(0, planListString.length()-2); // Removes last ", " for nice printing
     }
     
     // My Homework above this comment //
