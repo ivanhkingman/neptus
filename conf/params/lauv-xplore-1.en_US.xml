@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<config format="1" version="2020.01.0 (bottomUpSearch,6cb904f7d,dirty)" system="lauv-xplore-1" i18n="en_US">
+<config format="1" version="2020.01.0 (bottomUpSearch,97bd3e787,dirty)" system="lauv-xplore-1" i18n="en_US">
 <section name="Text Message Parser" name-i18n="Text Message Parser">
 <param name="Entity Label">
 <name-i18n>Entity Label</name-i18n><type>string</type><visibility>developer</visibility><scope>global</scope><default>Text Message Parser</default><units></units><desc>Main entity label</desc></param>
@@ -455,7 +455,7 @@
 <param name="Entity Label -- StationKeepingExtended">
 <name-i18n>Entity Label -- StationKeepingExtended</name-i18n><type>string</type><visibility>developer</visibility><scope>global</scope><default>StationKeepingExtended Maneuver</default><units></units><desc>StationKeepingExtended maneuver&apos;s entity label</desc></param>
 <param name="Entity Label -- BottomUpSearch">
-<name-i18n>Entity Label -- BottomUpSearch</name-i18n><type>string</type><visibility>developer</visibility><scope>global</scope><default>BottomUpSearch Maneuver</default><units></units><desc>BottomUpSearch maneuver&apos;s entity label</desc></param>
+<name-i18n>Entity Label -- BottomUpSearch</name-i18n><type>string</type><visibility>developer</visibility><scope>global</scope><default>Bottom Up Search Maneuver</default><units></units><desc>BottomUpSearch maneuver&apos;s entity label</desc></param>
 <param name="Unsupported">
 <name-i18n>Unsupported</name-i18n><type>list:string</type><visibility>developer</visibility><scope>global</scope><default></default><units></units><desc>List of unsupported maneuvers</desc></param>
 <param name="Loiter -- Minimum Radius">
